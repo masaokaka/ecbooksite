@@ -1,5 +1,6 @@
 # ecbooksite
-
+Vue、Vuexなどを用いて簡易的なECサイトを作成しています。
+QuiitaのAPIも利用する予定です。
 ## Project setup
 ```
 npm install
