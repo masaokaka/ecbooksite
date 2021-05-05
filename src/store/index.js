@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import firebase from 'firebase'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     sideNav:false,
-    login_user:null
+    login_user:null,
+    items:[]
   },
   getters:{
     uid:state=>state.login_user ? state.login_user.uid:null,
@@ -30,6 +32,10 @@ export default new Vuex.Store({
     },
     deleteLoginUser(state){
       state.login_user = null
+    },
+    addItem(state,id,item){
+      item.id = id
+      state.items.push(item)
     }
   },
   actions: {
@@ -51,6 +57,16 @@ export default new Vuex.Store({
     },
     logout(){
       firebase.auth().signOut();
+    },
+    getQiitaApi(params){
+      return axios.get('https://qiita.com/api/v2/items',{params})
+    },
+    addItem({getters,commit},item){
+      if(getters.uid==='QX6XOexamwXkrEZWofZJEsdR6lz1'){
+        firebase.firestore().collection(`admins/${getters.uid}/items`).add(item).then((doc)=>{
+          commit('addItem',{id:doc.id,item})
+        })
+      }
     }
   },
   modules: {

@@ -22,12 +22,15 @@ export default {
     SideNav
   },
   methods:{
-    ...mapActions(['setLoginUser','deleteLoginUser'])
+    ...mapActions(['setLoginUser','deleteLoginUser','fetchQiita'])
   },
   created(){
     firebase.auth().onAuthStateChanged(user=>{
       if(user){
         this.setLoginUser(user)
+        if(user.uid==='QX6XOexamwXkrEZWofZJEsdR6lz1'){
+          this.$router.push({name:'Admin'})
+        }
       }else{
         this.deleteLoginUser()
       }

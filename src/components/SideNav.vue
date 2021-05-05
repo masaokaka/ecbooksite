@@ -14,6 +14,10 @@
             <v-list-item-icon><v-icon>{{item.icon}}</v-icon></v-list-item-icon>
             <v-list-item-title>{{item.name}}</v-list-item-title>
         </v-list-item>
+        <v-list-item v-if="$store.getters.uid==='QX6XOexamwXkrEZWofZJEsdR6lz1'" to="/admin">
+            <v-list-item-icon><v-icon>mdi-bomb</v-icon></v-list-item-icon>
+            <v-list-item-title>Admin</v-list-item-title>
+        </v-list-item>
     </v-list>
 </v-navigation-drawer>
 </template>
