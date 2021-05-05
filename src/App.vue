@@ -12,12 +12,26 @@
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import SideNav from '@/components/SideNav.vue'
+import {mapActions} from 'vuex'
+import firebase from 'firebase'
 
 export default {
   components:{
     Header,
     Footer,
     SideNav
+  },
+  methods:{
+    ...mapActions(['setLoginUser','deleteLoginUser'])
+  },
+  created(){
+    firebase.auth().onAuthStateChanged(user=>{
+      if(user){
+        this.setLoginUser(user)
+      }else{
+        this.deleteLoginUser()
+      }
+    })
   }
 }
 </script>

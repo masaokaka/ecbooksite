@@ -5,6 +5,6 @@
 </template>
 <style scoped>
 #footer{
-    background-color: aquamarine;
+    background-color: greenyellow;
 }
 </style>

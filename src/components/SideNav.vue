@@ -3,10 +3,10 @@
     <v-list>
         <v-list-item>
             <v-list-item-avatar>
-                <img v-if="photoURL" :src="photoURL">
+                <img v-if="$store.getters.photoURL" :src="$store.getters.photoURL">
             </v-list-item-avatar>
-            <v-list-item-content v-if="userName">
-                <v-list-item-title>{{userName}}</v-list-item-title>
+            <v-list-item-content v-if="$store.getters.userName">
+                <v-list-item-title>{{$store.getters.userName}}</v-list-item-title>
             </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
@@ -25,7 +25,8 @@ export default {
                 {name:'Home',icon:'mdi-home',link:'/'},
                 {name:'Favorite',icon:'mdi-star',link:'/favorite'},
                 {name:'Cart',icon:'mdi-cart',link:'/cart'},
-                {name:'Mypage',icon:'mdi-face',link:'/mypage'}
+                {name:'Mypage',icon:'mdi-human-handsdown',link:'/mypage'},
+                {name:'Qiita',icon:'mdi-bookmark-multiple',link:'/qiita'}
             ]
         }
     }
