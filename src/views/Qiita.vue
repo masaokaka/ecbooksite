@@ -5,6 +5,11 @@
         <v-text-field v-model="searchText" label="フリーワード検索"></v-text-field>
         <v-btn @click="search()"><v-icon>mdi-search-web</v-icon></v-btn>
     </v-col>
+    <v-list>
+        <v-list-item v-for="qiita,index in qiitaData" :key="index">
+            <a>{{qiita.title}}</a>
+        </v-list-item>
+    </v-list>
 </v-app>
 </template>
 <script>

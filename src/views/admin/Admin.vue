@@ -9,12 +9,12 @@
             <v-form>
                 <v-text-field v-model="item.name" label="商品名"></v-text-field>
                 <v-text-field v-model="item.author" label="著者"></v-text-field>
-                <v-text-field v-model="item.price" label="価格"></v-text-field>
+                <v-text-field type="number" v-model="item.price" label="価格"></v-text-field>
                 <v-text-field v-model="item.publisher" label="出版社"></v-text-field>
-                <v-text-field v-model="item.date" label="発売日"></v-text-field>
+                <v-text-field type="date" v-model="item.date" label="発売日"></v-text-field>
                 <v-text-field v-model="item.text" label="内容"></v-text-field>
                 <v-text-field type="number" v-model="item.number" label="在庫"></v-text-field>
-                <v-file-input v-model="item.img" prepend-icon="mdi-camera" label="写真"></v-file-input>
+                <v-file-input v-model="img" prepend-icon="mdi-camera" label="画像"></v-file-input>
                 <div class="text-center">
                     <v-btn color="info" class="ml-2" @click="submit()">保存</v-btn>
                 </div>
@@ -30,7 +30,10 @@
         :items-per-page="5"
         class="elevation-1"
         >
-        <template></template>
+        <!-- ここに画像をスロットで表示させる -->
+        <template v-slot:[`item.img`]="{ item }">
+            <img :src="item.img" width="100px" height="100px">
+        </template>
         </v-data-table>
     </v-flex>
 </v-container>
@@ -41,24 +44,24 @@ export default {
     data(){
         return {
             headers:[
+                {text:'画像',value:'img'},
                 {text:'商品名',value:'name'},
                 {text:'著者',value:'author'},
                 {text:'出版社',value:'publisher'},
                 {text:'価格',value:'price'},
                 {text:'在庫',value:'number'},
             ],
+            img:null,
             item:{},
-            items:[
-                {id:1,name:'ほん',author:'太郎',publisher:'太郎出版',price:1000,number:10},
-                {id:2,name:'ほん',author:'太郎',publisher:'太郎出版',price:1000,number:10},
-                {id:3,name:'ほん',author:'太郎',publisher:'太郎出版',price:1000,number:10},
-            ],
+            items:this.$store.state.items,
         }
     },
     methods:{
-        ...mapActions(['addItem']),
+        ...mapActions(['addItem','addImage','getImageUrl']),
         submit(){
-            this.addItem(this.item)
+            this.addImage({item:this.item,img:this.img})
+            this.item = {};
+            this.img=null;
         }
     }
 }

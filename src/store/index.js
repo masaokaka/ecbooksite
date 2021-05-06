@@ -33,7 +33,7 @@ export default new Vuex.Store({
     deleteLoginUser(state){
       state.login_user = null
     },
-    addItem(state,id,item){
+    addItem(state,{id,item}){
       item.id = id
       state.items.push(item)
     }
@@ -61,13 +61,34 @@ export default new Vuex.Store({
     getQiitaApi(params){
       return axios.get('https://qiita.com/api/v2/items',{params})
     },
-    addItem({getters,commit},item){
+    //画像データをstorageに追加して、URLを取得
+    addImage({dispatch,getters},{item,img}){
       if(getters.uid==='QX6XOexamwXkrEZWofZJEsdR6lz1'){
+        let storageRef = firebase.storage().ref().child(`img/${img.name}`);
+        storageRef.put(img).then(()=>{
+          storageRef.getDownloadURL().then((url)=>{
+            dispatch('addItem',{item:item,url:url})
+          })
+        })
+      }
+    },
+    addItem({getters,commit},{item,url}){
+      if(getters.uid==='QX6XOexamwXkrEZWofZJEsdR6lz1'){
+        item.img = url
         firebase.firestore().collection(`admins/${getters.uid}/items`).add(item).then((doc)=>{
           commit('addItem',{id:doc.id,item})
         })
       }
-    }
+    },
+    fetchItems({getters,commit}){
+      if(getters.uid){
+        firebase.firestore().collection(`admins/${getters.uid}/items`).get().then(snapShot=>{
+          snapShot.forEach(doc=>{
+            commit('addItem',{id:doc.id,item:doc.data()})
+          })
+        })
+      }
+    },
   },
   modules: {
   }

@@ -22,12 +22,14 @@ export default {
     SideNav
   },
   methods:{
-    ...mapActions(['setLoginUser','deleteLoginUser','fetchQiita'])
+    ...mapActions(['setLoginUser','deleteLoginUser','fetchItems'])
   },
   created(){
     firebase.auth().onAuthStateChanged(user=>{
       if(user){
-        this.setLoginUser(user)
+        this.setLoginUser(user).then(()=>{
+          this.fetchItems()
+        })
         if(user.uid==='QX6XOexamwXkrEZWofZJEsdR6lz1'){
           this.$router.push("/admin").catch(()=>{});
         }
