@@ -5,7 +5,7 @@ import Items from '../views/Items.vue'
 import MyPage from '../views/MyPage.vue'
 import Qiita from '../views/Qiita.vue'
 import Favorite from '../views/Favorite.vue'
-import Admin from '../views/admin/Admin.vue'
+import Admin from '@/views/admin/Admin.vue'
 
 Vue.use(VueRouter)
 

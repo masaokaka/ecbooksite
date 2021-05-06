@@ -29,7 +29,7 @@ export default {
       if(user){
         this.setLoginUser(user)
         if(user.uid==='QX6XOexamwXkrEZWofZJEsdR6lz1'){
-          this.$router.push({name:'Admin'})
+          this.$router.push("/admin").catch(()=>{});
         }
       }else{
         this.deleteLoginUser()
