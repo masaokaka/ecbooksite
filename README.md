@@ -1,25 +1,27 @@
 # ecbooksite
-Vue、Vuexなどを用いて簡易的なECサイトを作成しています。
-QuiitaのAPIも利用する予定です。
-## Project setup
-```
-npm install
-```
+ECサイト作成に向けた練習用で作成。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+# 必要な機能
+１、ログイン処理. 
+２、商品一覧（表示、検索）. 
+ページング機能. 
+３、商品詳細. 
+４、ショッピングカート. 
+合計金額を自動計算したり、区分（0ならショッピングカートにあるもの、1は注文済みのもの）をつける。
 
-### Compiles and minifies for production
-```
-npm run build
-```
+ショッピングカートと注文履歴のテーブルが一緒にできちゃうのでらく。物理的に 削除せずに、フラグで状態を管理することが基本である.  
+例：間違えて退会処理してしまったユーザーの復帰が簡単. 
+５、注文. 
+郵便番号から自動で住所を入力する. 
+６、注文履歴. 
 
-### Lints and fixes files
-```
-npm run lint
-```
+# できれば追加したい機能
+ユーザー情報の登録. 
+お気に入り. 
+メール送信（外部API）. 
+管理者画面. 
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# 補足情報
+商品情報を楽天APIで出しても良い. 
+javascript、vue、外部通信(API)を使用する.     
+ユースケースについてはしっかりと確認して確実に実装しないと不合格となる.  
