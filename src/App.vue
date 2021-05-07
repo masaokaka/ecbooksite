@@ -28,13 +28,15 @@ export default {
     firebase.auth().onAuthStateChanged(user=>{
       if(user){
         this.setLoginUser(user).then(()=>{
-          this.fetchItems()
+          this.fetchItems();
+          this.$router.push('/').catch(()=>{});
         })
         if(user.uid==='QX6XOexamwXkrEZWofZJEsdR6lz1'){
           this.$router.push("/admin").catch(()=>{});
         }
       }else{
-        this.deleteLoginUser()
+        this.deleteLoginUser();
+        this.$router.push('/').catch(()=>{});
       }
     })
   }

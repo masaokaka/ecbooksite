@@ -2,9 +2,6 @@
 <v-navigation-drawer app v-model="$store.state.sideNav" clipped temporary>
     <v-list>
         <v-list-item>
-            <v-list-item-avatar>
-                <img v-if="$store.getters.photoURL" :src="$store.getters.photoURL">
-            </v-list-item-avatar>
             <v-list-item-content v-if="$store.getters.userName">
                 <v-list-item-title>{{$store.getters.userName}}</v-list-item-title>
             </v-list-item-content>

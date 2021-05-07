@@ -2,15 +2,14 @@
 <div>
     <v-app-bar id="header">
         <v-app-bar-nav-icon @click="toggle"></v-app-bar-nav-icon>
-        <v-app-bar-title>プログラミング書店</v-app-bar-title>
+        <v-app-bar-title>プログラミング堂</v-app-bar-title>
         <v-spacer></v-spacer>
         <p v-if="$store.getters.userName">ようこそ  {{$store.getters.userName}}</p>
-        <v-btn icon @click="logoutConfirm" v-if="$store.state.login_user">
-            <v-icon>mdi-logout</v-icon>
-        </v-btn>
-        <v-btn icon @click="login" v-else>
-            <v-icon>mdi-login</v-icon>
-        </v-btn>
+        <v-btn @click="logoutConfirm" v-if="$store.state.login_user">ログアウト</v-btn>
+        <template v-else>
+        <v-btn @click="$router.push('/register')">新規登録</v-btn>
+        <v-btn @click="$router.push('/login')">ログイン</v-btn>
+        </template>
     </v-app-bar>
 </div>
 </template>
