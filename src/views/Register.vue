@@ -50,8 +50,11 @@ export default {
             password:'',
         }
     },
+    created(){
+        this.errorDelete();
+    },
     methods:{
-        ...mapActions(['register']),
+        ...mapActions(['register','errorDelete']),
         registerConfirm(){
             if(confirm(`${this.email}で登録しますがよろしいですか？`)){
                 this.register({name:this.name,email:this.email,password:this.password});

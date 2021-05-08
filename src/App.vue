@@ -25,20 +25,22 @@ export default {
     ...mapActions(['setLoginUser','deleteLoginUser','fetchItems'])
   },
   created(){
+    this.fetchItems();
     firebase.auth().onAuthStateChanged(user=>{
-      if(user.uid==='WHX8Vx1cGTUHV2m4xx5o20q2Rjk2'){
-        this.setLoginUser(user).then(()=>{
-          this.fetchItems();
-          this.$router.push("/admin/items").catch(()=>{});
-        });
-      }else if(user){
-        this.setLoginUser(user).then(()=>{
-          this.fetchItems();
-          this.$router.push('/').catch(()=>{});
-        });
+      if(user){
+        if(user.uid==='WHX8Vx1cGTUHV2m4xx5o20q2Rjk2'){
+          this.setLoginUser(user).then(()=>{
+            this.$router.push("/admin/items").catch(()=>{});
+          });
+        }else{
+          this.setLoginUser(user).then(()=>{
+            this.$router.push('/').catch(()=>{});
+          });
+        }
       }else{
-        this.deleteLoginUser();
-        this.$router.push('/').catch(()=>{});
+        this.deleteLoginUser().then(()=>{
+          this.$router.push('/').catch(()=>{});
+        })
       }
     })
   }

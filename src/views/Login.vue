@@ -44,8 +44,11 @@ export default {
             password:'',
         }
     },
+    created(){
+        this.errorDelete();
+    },
     methods:{
-        ...mapActions(['login']),
+        ...mapActions(['login','errorDelete']),
         signIn(){
             this.login({email:this.email,password:this.password});
             this.email = '';
