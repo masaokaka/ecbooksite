@@ -1,11 +1,11 @@
 <template>
   <v-container id="container">
-    <!-- <v-layout row rap justify-left>
+    <v-layout row rap justify-left>
       <v-flex xs12 class="text-left">
         <h2>書籍検索</h2>
       </v-flex>
     <SearchForm @update:items = "search"/>
-    </v-layout> -->
+    </v-layout>
     <v-flex xs12 class="text-left">
         <h2>書籍一覧</h2>
     </v-flex>
@@ -61,9 +61,11 @@
 </template>
 
 <script>
+import SearchFrom from '@/components/SearchForm.vue'
 export default {
   name: 'Home',
   components: {
+    SearchForm
   },
   data(){
     return {
