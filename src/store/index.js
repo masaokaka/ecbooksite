@@ -10,6 +10,7 @@ export default new Vuex.Store({
     sideNav:false,
     login_user:null,
     items:[],
+    sort:null,
     errorMsg:null
   },
   getters:{
@@ -32,8 +33,12 @@ export default new Vuex.Store({
     },
     errorDelete(state){
       state.errorMsg = null
-    }
+    },
+    clearItems(state){
+      state.items =[];
+    },
   },
+
   actions: {
     sideNav({commit}){
       commit('sideNav')
@@ -107,7 +112,22 @@ export default new Vuex.Store({
     errorDelete({commit}){
       commit('errorDelete');
     },
-  },
-  modules: {
+    clearItems({commit}){
+      commit('clearItems');
+    },
+    search({dispatch,commit},text){
+      //今入っているアイテムを消してから検索結果を挿入
+      dispatch('clearItems').then(()=>{
+        firebase.firestore().collection(`admins/WHX8Vx1cGTUHV2m4xx5o20q2Rjk2/items`).get()
+        .then(snapShot=>{
+          snapShot.forEach(doc=>{
+            let findName = doc.data().name
+            if(0<=findName.search(text)){
+              commit('addItem',{id:doc.id,item:doc.data()})
+            }
+          })
+        })
+      })
+    },
   }
 })
