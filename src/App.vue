@@ -26,14 +26,16 @@ export default {
   },
   created(){
     firebase.auth().onAuthStateChanged(user=>{
-      if(user){
+      if(user.uid==='WHX8Vx1cGTUHV2m4xx5o20q2Rjk2'){
+        this.setLoginUser(user).then(()=>{
+          this.fetchItems();
+          this.$router.push("/admin/items").catch(()=>{});
+        });
+      }else if(user){
         this.setLoginUser(user).then(()=>{
           this.fetchItems();
           this.$router.push('/').catch(()=>{});
-        })
-        if(user.uid==='QX6XOexamwXkrEZWofZJEsdR6lz1'){
-          this.$router.push("/admin").catch(()=>{});
-        }
+        });
       }else{
         this.deleteLoginUser();
         this.$router.push('/').catch(()=>{});

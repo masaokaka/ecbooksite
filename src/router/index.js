@@ -7,7 +7,8 @@ import Items from '../views/Items.vue'
 import MyPage from '../views/MyPage.vue'
 import Qiita from '../views/Qiita.vue'
 import Favorite from '../views/Favorite.vue'
-import Admin from '@/views/admin/Admin.vue'
+import AdminAdditem from '@/views/admin/AdminAddItem.vue'
+import AdminItems from '@/views/admin/AdminItems.vue'
 
 Vue.use(VueRouter)
 
@@ -48,9 +49,14 @@ const routes = [
     component: Favorite
   },
   {
-    path: '/admin',
-    name: 'Admin',
-    component: Admin
+    path: '/admin/additem',
+    name: 'AdminAddItem',
+    component: AdminAdditem
+  },
+  {
+    path: '/admin/items',
+    name: 'AdminItems',
+    component: AdminItems
   },
 ]
 
