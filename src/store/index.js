@@ -29,6 +29,9 @@ export default new Vuex.Store({
     addItem(state,{id,item}){
       item.id = id
       state.items.push(item)
+    },
+    errorDelete(state){
+      state.errorMsg = null
     }
   },
   actions: {
@@ -62,14 +65,15 @@ export default new Vuex.Store({
       })
     },
     //ログアウト
-    logout(){
+    logout({commit}){
       firebase.auth().signOut();
+      commit('deleteLoginUser');
     },
     setLoginUser({commit},user){
-      commit('setLoginUser',user)
+      commit('setLoginUser',user);
     },
     deleteLoginUser({commit}){
-      commit('deleteLoginUser')
+      commit('deleteLoginUser');
     },
     getQiitaApi(params){
       return axios.get('https://qiita.com/api/v2/items',{params})
@@ -93,14 +97,15 @@ export default new Vuex.Store({
         })
       }
     },
-    fetchItems({getters,commit}){
-      if(getters.uid){
+    fetchItems({commit}){
         firebase.firestore().collection(`admins/WHX8Vx1cGTUHV2m4xx5o20q2Rjk2/items`).get().then(snapShot=>{
           snapShot.forEach(doc=>{
             commit('addItem',{id:doc.id,item:doc.data()})
           })
         })
-      }
+    },
+    errorDelete({commit}){
+      commit('errorDelete');
     },
   },
   modules: {
