@@ -1,13 +1,19 @@
 <template>
   <v-container id="container">
     <v-layout row rap justify-left>
-      <v-flex xs12 class="text-left">
-        <h2>書籍検索</h2>
-      </v-flex>
-    <SearchForm @update:items = "search"/>
+    <SearchForm/>
     </v-layout>
     <v-flex xs12 class="text-left">
-        <h2>書籍一覧</h2>
+      <h2>書籍一覧</h2>
+    <!-- ソート機能 -->
+      <v-select 
+        v-model="selected"
+        label="並べ替え"
+        :items="options"
+        item-text="label"
+        item-value="code"
+      >
+      </v-select>
     </v-flex>
     <v-layout row rap justify-center>
         <v-card id="item" v-for="(item,index) in items" :key="index" outlined>
@@ -61,15 +67,46 @@
 </template>
 
 <script>
-import SearchFrom from '@/components/SearchForm.vue'
+import SearchForm from '@/components/SearchForm.vue'
 export default {
   name: 'Home',
   components: {
     SearchForm
   },
   data(){
-    return {
-      items:this.$store.state.items
+    return{
+      selected:null,
+      options:[
+          {label:'価格が安い',code:'lowPrice'},
+          {label:'価格が高い',code:'highPrice'},
+      ]
+    }
+  },
+  computed:{
+    items(){
+      if(this.selected==='lowPrice'){
+        let array = this.$store.state.items;
+        array.sort((a,b)=>{
+          if(a.price < b.price){
+            return -1;
+          }else {
+            return 1;
+          }
+        })
+        return array
+      }else if(this.selected==='highPrice'){
+        let array = this.$store.state.items;
+        array.sort((a,b)=>{
+          if(a.price > b.price){
+            return -1;
+          }else {
+            return 1;
+          }
+        })
+        return array
+      }else{
+        return this.$store.state.items;
+      }
     }
   }
 
