@@ -1,7 +1,7 @@
 # ecbooksite
 ECサイト作成に向けた練習用で作成. 
-設計書は以下. 
-https://miro.com/app/board/o9J_lFBxD6c=/. 
+設計書)=>
+https://miro.com/app/board/o9J_lFBxD6c=/
 
 # 必要な機能
 １、ログイン処理. 
