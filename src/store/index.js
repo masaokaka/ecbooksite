@@ -21,7 +21,6 @@ export default new Vuex.Store({
       state.sideNav = !state.sideNav
     },
     setLoginUser(state,user){
-      console.log(user);
       state.login_user = user
     },
     deleteLoginUser(state){
@@ -77,7 +76,7 @@ export default new Vuex.Store({
     },
     //画像データをstorageに追加して、URLを取得
     addImage({dispatch,getters},{item,img}){
-      if(getters.uid==='QX6XOexamwXkrEZWofZJEsdR6lz1'){
+      if(getters.uid==='WHX8Vx1cGTUHV2m4xx5o20q2Rjk2'){
         let storageRef = firebase.storage().ref().child(`img/${img.name}`);
         storageRef.put(img).then(()=>{
           storageRef.getDownloadURL().then((url)=>{
@@ -87,7 +86,7 @@ export default new Vuex.Store({
       }
     },
     addItem({getters,commit},{item,url}){
-      if(getters.uid==='QX6XOexamwXkrEZWofZJEsdR6lz1'){
+      if(getters.uid==='WHX8Vx1cGTUHV2m4xx5o20q2Rjk2'){
         item.img = url
         firebase.firestore().collection(`admins/${getters.uid}/items`).add(item).then((doc)=>{
           commit('addItem',{id:doc.id,item})
@@ -96,7 +95,7 @@ export default new Vuex.Store({
     },
     fetchItems({getters,commit}){
       if(getters.uid){
-        firebase.firestore().collection(`admins/${getters.uid}/items`).get().then(snapShot=>{
+        firebase.firestore().collection(`admins/WHX8Vx1cGTUHV2m4xx5o20q2Rjk2/items`).get().then(snapShot=>{
           snapShot.forEach(doc=>{
             commit('addItem',{id:doc.id,item:doc.data()})
           })
