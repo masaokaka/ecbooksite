@@ -36,10 +36,10 @@
           <div id="buttons">
             <v-card-actions>
               <template v-if="$store.state.login_user">
-              <v-btn dark color="orange" @click="addToFav(item)">
+              <v-btn dark color="orange" @click="addFav(item)">
                 <v-icon>mdi-star</v-icon>
               </v-btn>
-              <v-btn color="success" @click="addToCart(item)">
+              <v-btn color="success" @click="addItemToCart(item)">
                 <v-icon>mdi-cart</v-icon>
               </v-btn>
               </template>
@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import SearchForm from '@/components/SearchForm.vue'
 export default {
   name: 'Home',
@@ -120,6 +121,7 @@ export default {
     }
   },
   methods:{
+    ...mapActions(['addItemToCart']),
     //ソート用computedが動作すると中で実行されるようにしている。
     pageNation(array,page){
       //sliceで切り抜く開始位置と終了位置を指定。

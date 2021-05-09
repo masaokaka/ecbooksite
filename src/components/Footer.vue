@@ -10,7 +10,7 @@
                 <v-divider></v-divider>
             </div>
             <div style="margin-top:10px;">
-                <strong>プログラミング堂</strong>
+                <strong>プログラミング書店</strong>
             </div>
             <div>
                 <small>All Rights Reserved</small>

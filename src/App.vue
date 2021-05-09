@@ -22,7 +22,7 @@ export default {
     SideNav
   },
   methods:{
-    ...mapActions(['setLoginUser','deleteLoginUser','fetchItems'])
+    ...mapActions(['setLoginUser','deleteLoginUser','fetchItems','fetchCartItems'])
   },
   created(){
     this.fetchItems();
@@ -30,10 +30,12 @@ export default {
       if(user){
         if(user.uid==='WHX8Vx1cGTUHV2m4xx5o20q2Rjk2'){
           this.setLoginUser(user).then(()=>{
+            this.fetchCartItems();
             this.$router.push("/admin/items").catch(()=>{});
           });
         }else{
           this.setLoginUser(user).then(()=>{
+            this.fetchCartItems();
             this.$router.push('/').catch(()=>{});
           });
         }

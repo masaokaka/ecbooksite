@@ -10,33 +10,39 @@ export default new Vuex.Store({
     sideNav:false,
     login_user:null,
     items:[],
+    cart:[],
     sort:null,
     errorMsg:null
   },
   getters:{
     uid:state=>state.login_user ? state.login_user.uid:null,
     userName:state=>state.login_user ? state.login_user.displayName:'',
+    cartItems:state=> state.cart
   },
   mutations: {
     sideNav(state){
-      state.sideNav = !state.sideNav
+      state.sideNav = !state.sideNav;
     },
     setLoginUser(state,user){
-      state.login_user = user
+      state.login_user = user;
     },
     deleteLoginUser(state){
-      state.login_user = null
+      state.login_user = null;
     },
     addItem(state,{id,item}){
-      item.id = id
-      state.items.push(item)
+      item.id = id;
+      state.items.push(item);
     },
     errorDelete(state){
-      state.errorMsg = null
+      state.errorMsg = null;
     },
     clearItems(state){
       state.items =[];
     },
+    addItemToCart(state,{cartId,item}){
+      item.cartId = cartId;
+      state.cart.push(item);
+    }
   },
 
   actions: {
@@ -130,5 +136,23 @@ export default new Vuex.Store({
         })
       })
     },
+    addItemToCart({getters,commit},item){
+      if(getters.uid){
+        //注文前であることを0,1で判別
+        item.ordered = 0;
+        firebase.firestore().collection(`users/${getters.uid}/cartItems`).add(item).then((doc)=>{
+          commit('addItemToCart',{cartId:doc.id,item})
+        })
+      }
+    },
+    fetchCartItems({getters,commit}){
+      if(getters.uid){
+        firebase.firestore().collection(`users/${getters.uid}/cartItems`).get().then(snapShot=>{
+          snapShot.forEach(doc=>{
+            commit('addItemToCart',{cartId:doc.id,item:doc.data()})
+          })
+        })
+      }
+  },
   }
 })
