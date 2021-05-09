@@ -7,6 +7,7 @@ import MyPage from '../views/MyPage.vue'
 import Qiita from '../views/Qiita.vue'
 import Favorite from '../views/Favorite.vue'
 import Cart from '../views/Cart.vue'
+import Buy from '../views/Buy.vue'
 import ItemDetail from '../views/ItemDetail.vue'
 import AdminAdditem from '@/views/admin/AdminAddItem.vue'
 import AdminItems from '@/views/admin/AdminItems.vue'
@@ -48,6 +49,11 @@ const routes = [
     path: '/cart',
     name: 'Cart',
     component: Cart
+  },
+  {
+    path: '/buy',
+    name: 'Buy',
+    component: Buy
   },
   {
     path: '/itemdetail/:item_id',
