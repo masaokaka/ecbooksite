@@ -16,7 +16,7 @@
       </v-select>
     </v-flex>
     <v-layout row rap justify-center>
-        <v-card id="item" v-for="(item,index) in items" :key="index" outlined>
+        <v-card id="item" v-for="(item,index) in itemsSorted" :key="index" outlined>
           <!-- 画像 -->
           <div id="img">
             <v-img :src="item.img" alt="画像"></v-img>
@@ -46,7 +46,7 @@
         </v-card>
     </v-layout>
     <!-- ページネーション -->
-    <!-- <div class="text-center">
+    <div class="text-center">
     <v-container>
       <v-row justify="center">
         <v-col cols="8">
@@ -54,15 +54,14 @@
             <v-pagination
               v-model="page"
               class="my-4"
-              :length="10"
-              @input="getPage"
-              color="accent"
+              :length="pageLength"
+              color="success"
             ></v-pagination>
           </v-container>
         </v-col>
       </v-row>
     </v-container>
-  </div> -->
+  </div>
   </v-container>
 </template>
 
@@ -75,6 +74,9 @@ export default {
   },
   data(){
     return{
+      items:[],
+      page:1,
+      itemsPerPage:5,
       selected:null,
       options:[
           {label:'価格が安い',code:'lowPrice'},
@@ -83,33 +85,46 @@ export default {
     }
   },
   computed:{
-    items(){
+    pageLength(){
+      let length = this.$store.state.items.length 
+      return Math.ceil(length/this.itemsPerPage)
+    },
+    itemsSorted(){
+      //ページが変更された時もソート用computedが動くように変数としてthis.pageをcomputed内に含めいている。
+      let pageNow = this.page
+      let array = this.$store.state.items;
+      //ソートする前にクローンを作らないとエラーになる。
       if(this.selected==='lowPrice'){
-        let array = this.$store.state.items;
-        array.sort((a,b)=>{
+        array = array.slice().sort((a,b)=>{
           if(a.price < b.price){
             return -1;
           }else {
             return 1;
           }
         })
-        return array
+        return this.pageNation(array,pageNow)
       }else if(this.selected==='highPrice'){
-        let array = this.$store.state.items;
-        array.sort((a,b)=>{
+        array = array.slice().sort((a,b)=>{
           if(a.price > b.price){
             return -1;
           }else {
             return 1;
           }
         })
-        return array
+        return this.pageNation(array,pageNow)
       }else{
-        return this.$store.state.items;
+        return this.pageNation(array,pageNow) 
       }
     }
+  },
+  methods:{
+    //ソート用computedが動作すると中で実行されるようにしている。
+    pageNation(array,page){
+      //sliceで切り抜く開始位置と終了位置を指定。
+      array = array.slice(this.itemsPerPage*(page-1),this.itemsPerPage*(page))
+      return array
+    }
   }
-
 }
 </script>
 <style>
