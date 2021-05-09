@@ -42,6 +42,13 @@ export default new Vuex.Store({
     addItemToCart(state,{cartId,item}){
       item.cartId = cartId;
       state.cart.push(item);
+    },
+    buy(state,item){
+      state.cart.forEach((cartItem)=>{
+        if(cartItem.cartId===item.cartId){
+          cartItem.ordered = 1;
+        }
+      })
     }
   },
 
@@ -153,6 +160,22 @@ export default new Vuex.Store({
           })
         })
       }
-  },
+    },
+    buy({state,getters,commit}){
+      if(getters.uid){
+        //バッチを使ってデータの一括更新
+        let db = firebase.firestore();
+        let batch = db.batch();
+        state.cart.forEach((item)=>{
+          if(item.ordered==0){
+            console.log(item.name)
+            let targetItem = db.collection(`users/${getters.uid}/cartItems`).doc(`${item.cartId}`);
+            batch.update(targetItem,{"ordered":1})
+            commit('buy',item)
+          }
+        })
+        batch.commit()
+      }
+    },
   }
 })
