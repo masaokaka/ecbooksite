@@ -16,14 +16,16 @@
       </v-select>
     </v-flex>
     <v-layout row rap justify-center>
-        <v-card id="item" v-for="(item,index) in itemsSorted" :key="index" outlined>
+        <v-card id="item" v-for="(item,index) in itemsSorted" :key="index" outlined width="230">
           <!-- 画像 -->
           <div id="img">
             <v-img :src="item.img" alt="画像"></v-img>
           </div>
           <!-- タイトルなど -->
           <div id="contents">
-            <v-card-title>{{item.name}}</v-card-title>
+            <v-card-title>
+              <router-link :to="{name:'ItemDetail',params:{item_id:item.id}}">{{item.name}}</router-link>
+            </v-card-title>
             <v-card-subtitle>{{item.author}}</v-card-subtitle>
           </div>
           <!-- 金額 -->
@@ -127,7 +129,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 #item{
   margin: 10px;
   padding: 10px;

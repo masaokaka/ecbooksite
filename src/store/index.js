@@ -30,7 +30,6 @@ export default new Vuex.Store({
     addItem(state,{id,item}){
       item.id = id
       state.items.push(item)
-      console.log(item.name)
     },
     errorDelete(state){
       state.errorMsg = null

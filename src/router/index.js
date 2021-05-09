@@ -6,6 +6,7 @@ import Login from '../views/Login.vue'
 import MyPage from '../views/MyPage.vue'
 import Qiita from '../views/Qiita.vue'
 import Favorite from '../views/Favorite.vue'
+import ItemDetail from '../views/ItemDetail.vue'
 import AdminAdditem from '@/views/admin/AdminAddItem.vue'
 import AdminItems from '@/views/admin/AdminItems.vue'
 
@@ -41,6 +42,11 @@ const routes = [
     path: '/favorite',
     name: 'Favorite',
     component: Favorite
+  },
+  {
+    path: '/itemdetail/:item_id',
+    name: 'ItemDetail',
+    component: ItemDetail
   },
   {
     path: '/admin/additem',
