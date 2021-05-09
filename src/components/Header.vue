@@ -7,6 +7,7 @@
         
         <template v-if="$store.getters.userName">
             ようこそ<strong>{{$store.getters.userName}}</strong>さん
+            <v-btn icon :to="{name:'AdminItems'}"><v-icon>mdi-account-tie</v-icon></v-btn>
             <v-btn icon :to="{name:'Mypage'}"><v-icon>mdi-human-handsdown</v-icon></v-btn>
             <v-btn icon :to="{name:'Cart'}"><v-icon>mdi-cart</v-icon></v-btn>
             <v-btn outlined @click="logoutConfirm" v-if="$store.state.login_user">ログアウト</v-btn>

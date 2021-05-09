@@ -7,11 +7,11 @@
             </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
-        <v-list-item v-for="item,index in items" :key="index" :to="item.link">
-            <v-list-item-icon><v-icon>{{item.icon}}</v-icon></v-list-item-icon>
-            <v-list-item-title>{{item.name}}</v-list-item-title>
-        </v-list-item>
-        <v-list-item v-if="$store.getters.uid==='WHX8Vx1cGTUHV2m4xx5o20q2Rjk2'" to="/admin">
+            <v-list-item v-for="item,index in items" :key="index" :to="item.link">
+                <v-list-item-icon><v-icon>{{item.icon}}</v-icon></v-list-item-icon>
+                <v-list-item-title>{{item.name}}</v-list-item-title>
+            </v-list-item>
+        <v-list-item v-if="$store.getters.uid==='WHX8Vx1cGTUHV2m4xx5o20q2Rjk2'" :to="{name:'AdminItems'}">
             <v-list-item-icon><v-icon>mdi-account-tie</v-icon></v-list-item-icon>
             <v-list-item-title>Admin</v-list-item-title>
         </v-list-item>
@@ -30,6 +30,6 @@ export default {
                 {name:'Qiita',icon:'mdi-bookmark-multiple',link:'/qiita'}
             ]
         }
-    }
+    },
 }
 </script>
