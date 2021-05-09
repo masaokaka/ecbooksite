@@ -3,17 +3,22 @@
     <v-btn to="/cart" icon><v-icon>mdi-arrow-left</v-icon>戻る</v-btn>
     <h3>合計金額：<span style="color:red;">{{totalPrice*tax}}</span>円 (計{{totalItemNum}}点)</h3>
     <h2>送り先住所の入力</h2>
+    <AddressForm/>
     <v-btn color="success" @click="buyConfirm">購入を確定する</v-btn>
 </v-container>
 </template>
 <script>
 import {mapActions} from 'vuex'
+import AddressForm from '@/components/AddressForm.vue'
 export default {
     data(){
         return {
             items:this.$store.getters.cartItems,
             tax:1.1
         }
+    },
+    components:{
+        AddressForm
     },
     computed:{
         totalPrice(){
