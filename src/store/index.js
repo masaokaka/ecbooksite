@@ -30,6 +30,7 @@ export default new Vuex.Store({
     addItem(state,{id,item}){
       item.id = id
       state.items.push(item)
+      console.log(item.name)
     },
     errorDelete(state){
       state.errorMsg = null
@@ -122,6 +123,7 @@ export default new Vuex.Store({
         .then(snapShot=>{
           snapShot.forEach(doc=>{
             let findName = doc.data().name
+            //search関数でnullの時は-1を返すようにしている
             if(0<=findName.search(text)){
               commit('addItem',{id:doc.id,item:doc.data()})
             }
